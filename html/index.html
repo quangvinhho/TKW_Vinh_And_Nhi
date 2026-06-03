@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quang Hưng Mobile - Cửa Hàng Điện Thoại Chính Hãng Giá Rẻ</title>
+  <meta name="description" content="Hệ thống bán lẻ điện thoại di động, phụ kiện chính hãng giá rẻ nhất thị trường. Hỗ trợ mua trả góp 0%, bảo hành chính hãng uy tín.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS link -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#d70018',
+              redHover: '#b80012',
+              blue: '#0974e8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 antialiased flex flex-col min-h-screen text-slate-800">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="bg-brand-red text-white sticky top-0 z-50 shadow-md nav-glass">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2 shrink-0">
+        <div class="bg-white text-brand-red font-black text-xl px-3 py-1.5 rounded-xl shadow-inner flex items-center justify-center">
+          QH
+        </div>
+        <div class="hidden md:block">
+          <span class="font-extrabold text-base tracking-wider block leading-none">QUANG HƯNG</span>
+          <span class="text-[9px] font-bold text-rose-200 tracking-widest uppercase">Mobile store</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-1.5 text-xs font-bold">
+        <a href="index.html" class="flex items-center gap-1 bg-brand-redHover px-3 py-2 rounded-xl transition-all shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          Trang chủ
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Giới thiệu
+        </a>
+        <div class="relative group">
+          <button class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            Sản phẩm
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <!-- Simple Dropdown -->
+          <div class="absolute left-0 mt-1 hidden group-hover:block w-48 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5 animate-fadeIn">
+            <a href="index.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Tất cả điện thoại</a>
+            <a href="index.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Apple (iPhone)</a>
+            <a href="index.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Samsung Galaxy</a>
+            <a href="index.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Oppo / Xiaomi</a>
+          </div>
+        </div>
+        <a href="#" class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          Khuyến mãi
+        </a>
+        <a href="#" class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          Bảo hành
+        </a>
+      </nav>
+
+      <!-- Search Box with Autocomplete suggestions -->
+      <div class="flex-1 max-w-md relative">
+        <div class="relative flex items-center">
+          <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." class="w-full bg-white text-slate-800 text-xs pl-4 pr-16 py-2.5 rounded-full border-none focus:outline-none focus:ring-2 focus:ring-red-300 shadow-inner">
+          <div class="absolute right-12 text-slate-400 cursor-pointer hover:text-slate-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-3-3 3 3 0 013 3z"></path></svg>
+          </div>
+          <button class="absolute right-1.5 bg-brand-red text-white p-1.5 rounded-full hover:bg-brand-redHover transition-colors flex items-center justify-center">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </button>
+        </div>
+        <!-- Suggestion Dropdown (Hidden initially) -->
+        <div id="search-suggestions" class="absolute left-0 right-0 mt-1 bg-white text-slate-800 border border-slate-100 rounded-2xl shadow-2xl overflow-hidden z-50 hidden suggestion-box">
+          <!-- Suggestion rows will be rendered here via JS -->
+        </div>
+      </div>
+
+      <!-- Action Area: Cart and Account -->
+      <div class="flex items-center gap-3">
+        <!-- Cart Link -->
+        <a href="cart.html" id="header-cart-btn" class="flex items-center gap-1.5 bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs relative select-none">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <span class="hidden sm:inline">Giỏ hàng</span>
+          <span id="cart-count-badge" class="absolute -top-1.5 -right-1 bg-yellow-400 text-slate-900 font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border border-brand-red shadow">0</span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="relative group select-none">
+          <button class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs">
+            <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-900 font-bold text-xs flex items-center justify-center shadow-inner shrink-0 border border-white">
+              OS
+            </div>
+            <span class="hidden sm:inline">Ong Sao</span>
+            <svg class="w-3.5 h-3.5 text-rose-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute right-0 mt-1 hidden group-hover:block w-44 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5">
+            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Tài khoản</a>
+            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Lịch sử mua hàng</a>
+            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700 text-red-600">Đăng xuất</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN BANNER SLIDER ==================== -->
+  <section class="max-w-7xl mx-auto px-4 mt-6">
+    <div class="relative rounded-3xl overflow-hidden shadow-lg slider-container border border-slate-100 bg-white">
+      
+      <!-- Track for slider -->
+      <div id="slide-track" class="slide-track h-64 md:h-96">
+        <!-- Slide 1 (Galaxy A07 mock banner generated) -->
+        <div class="slide-item relative h-full bg-slate-900">
+          <img src="../images/hero_banner.png" alt="Galaxy A07 Mới" class="w-full h-full object-cover">
+          <!-- Text Overlays -->
+          <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent flex flex-col justify-center px-8 md:px-16 text-white">
+            <span class="text-xs bg-red-600 font-extrabold px-3 py-1 rounded-full w-max tracking-wide mb-3 uppercase">Mới Ra Mắt</span>
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Galaxy A07</h2>
+            <p class="text-slate-200 text-sm md:text-lg mt-2 max-w-md">Pin khủng cực đại 5000mAh. Trải nghiệm giải trí tuyệt vời cả ngày dài.</p>
+            <div class="mt-6 flex items-center gap-4">
+              <a href="product-detail.html?id=galaxy-a07-new" class="bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs md:text-sm px-6 py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5">
+                Mua ngay
+              </a>
+              <span class="text-white font-bold text-xs md:text-sm">Chỉ từ <span class="text-yellow-400 text-base md:text-lg font-black">2.89 triệu</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 (Standard high-quality phone ad) -->
+        <div class="slide-item relative h-full bg-slate-950">
+          <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=1200&q=80" alt="iPhone 15 Pro Max" class="w-full h-full object-cover opacity-60">
+          <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-16 text-white">
+            <span class="text-xs bg-amber-500 font-extrabold px-3 py-1 rounded-full w-max tracking-wide mb-3 uppercase">Độc Quyền</span>
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">iPhone 15 Pro Max</h2>
+            <p class="text-slate-200 text-sm md:text-lg mt-2 max-w-md">Thiết kế Titanium bền nhẹ. Sức mạnh chip A17 Pro tối thượng.</p>
+            <div class="mt-6">
+              <a href="product-detail.html?id=iphone-15-pro" class="bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs md:text-sm px-6 py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 inline-block">
+                Khám phá ngay
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow Controls -->
+      <button id="slide-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <button id="slide-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+
+      <!-- Dot Indicators -->
+      <div id="slide-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-25">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SUB PROMO BANNERS ==================== -->
+  <section class="max-w-7xl mx-auto px-4 mt-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <!-- Card Banner 1 -->
+      <div class="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-6 text-white flex justify-between items-center relative overflow-hidden border border-slate-100 shadow hover:shadow-md transition-shadow">
+        <div class="z-10 flex-1">
+          <span class="text-[10px] bg-blue-500 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 inline-block">Ưu Đãi Lên Đời</span>
+          <h3 class="text-lg md:text-xl font-extrabold leading-tight">Galaxy A17 128GB</h3>
+          <p class="text-xs text-blue-100 mt-1">Đổi điện thoại cũ bất kỳ chỉ từ <span class="font-extrabold text-yellow-300 text-sm">4.69 Triệu</span> + Trả góp 0%</p>
+          <a href="#" class="mt-4 text-xs font-bold text-blue-800 bg-white hover:bg-blue-50 px-4 py-2 rounded-xl transition-colors inline-block">
+            Xem ngay
+          </a>
+        </div>
+        <div class="w-28 h-28 opacity-20 md:opacity-100 rotate-12 absolute right-4 shrink-0 pointer-events-none">
+          <img src="../images/iphone_mockup.png" alt="Sub promo" class="w-full h-full object-contain">
+        </div>
+      </div>
+
+      <!-- Card Banner 2 -->
+      <div class="bg-gradient-to-r from-rose-500 to-amber-500 rounded-2xl p-6 text-white flex justify-between items-center relative overflow-hidden border border-slate-100 shadow hover:shadow-md transition-shadow">
+        <div class="z-10 flex-1">
+          <span class="text-[10px] bg-red-600 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-2 inline-block">Reno14 Series 5G</span>
+          <h3 class="text-lg md:text-xl font-extrabold leading-tight">Chuyên Gia Chân Dung AI</h3>
+          <p class="text-xs text-red-500 bg-white px-2 py-0.5 rounded-md font-bold w-max mt-1.5">Lên đời giảm đến 1.7 Triệu</p>
+          <a href="#" class="mt-4 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded-xl transition-colors inline-block">
+            Nhận ưu đãi
+          </a>
+        </div>
+        <div class="w-28 h-28 opacity-20 md:opacity-100 -rotate-12 absolute right-4 shrink-0 pointer-events-none">
+          <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80" alt="Oppo sub" class="w-full h-full object-contain">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PRODUCT SECTIONS ==================== -->
+  <main class="max-w-7xl mx-auto px-4 mt-10 mb-16 flex-1">
+    
+    <!-- Brand Filter Navigation -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-5 mb-8">
+      <div>
+        <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+          <span class="w-2 h-7 bg-brand-red rounded-full block"></span>
+          ĐIỆN THOẠI NỔI BẬT
+        </h2>
+        <p class="text-slate-400 text-xs mt-1">Lọc nhanh theo hãng để tìm mẫu điện thoại ưng ý của bạn</p>
+      </div>
+
+      <!-- Filter buttons capsules -->
+      <div class="flex items-center gap-2 flex-wrap w-full sm:w-auto">
+        <button data-brand="all" class="brand-filter-btn px-4 py-2 rounded-full text-xs font-bold border border-brand-red bg-brand-red text-white transition-all shadow-sm">
+          Tất cả
+        </button>
+        <button data-brand="Apple" class="brand-filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-red-600 hover:text-red-600 transition-all">
+          Apple
+        </button>
+        <button data-brand="Samsung" class="brand-filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-red-600 hover:text-red-600 transition-all">
+          Samsung
+        </button>
+        <button data-brand="Oppo" class="brand-filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-red-600 hover:text-red-600 transition-all">
+          Oppo
+        </button>
+        <button data-brand="Xiaomi" class="brand-filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-200 bg-white text-slate-600 hover:border-red-600 hover:text-red-600 transition-all">
+          Xiaomi
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Grid Container -->
+    <div id="product-grid-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Cards rendered dynamically via js/main.js -->
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      
+      <!-- Info Column 1 -->
+      <div>
+        <h4 class="text-white font-extrabold text-sm mb-4 tracking-wider uppercase">Về Quang Hưng Mobile</h4>
+        <p class="text-xs leading-relaxed text-slate-400 mb-4">
+          Quang Hưng Mobile là hệ thống bán lẻ điện thoại di động chính hãng, cam kết mang đến sản phẩm chất lượng tốt nhất cùng mức giá cạnh tranh nhất.
+        </p>
+        <div class="flex items-center gap-3">
+          <a href="#" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Info Column 2 -->
+      <div>
+        <h4 class="text-white font-extrabold text-sm mb-4 tracking-wider uppercase">Chính Sách Hỗ Trợ</h4>
+        <ul class="space-y-2.5 text-xs text-slate-400">
+          <li><a href="#" class="hover:text-white transition-colors">Chính sách bảo hành đổi trả</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Chính sách mua trả góp 0%</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Chính sách giao hàng toàn quốc</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">Quy định bảo mật thông tin</a></li>
+        </ul>
+      </div>
+
+      <!-- Info Column 3 -->
+      <div>
+        <h4 class="text-white font-extrabold text-sm mb-4 tracking-wider uppercase">Tổng Đài Hỗ Trợ</h4>
+        <ul class="space-y-2.5 text-xs text-slate-400">
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-white shrink-0">Mua hàng:</span>
+            <a href="tel:18006601" class="hover:text-red-500 transition-colors">1800 6601 (7:30 - 22:00)</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-white shrink-0">Bảo hành:</span>
+            <a href="tel:18006602" class="hover:text-red-500 transition-colors">1800 6602 (8:00 - 21:00)</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-white shrink-0">Góp ý:</span>
+            <a href="tel:18006603" class="hover:text-red-500 transition-colors">1800 6603 (24/7)</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Info Column 4 -->
+      <div>
+        <h4 class="text-white font-extrabold text-sm mb-4 tracking-wider uppercase">Địa Chỉ Cửa Hàng</h4>
+        <p class="text-xs leading-relaxed text-slate-400 mb-2">
+          Hà Nội: 123 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội
+        </p>
+        <p class="text-xs leading-relaxed text-slate-400">
+          TP.HCM: 456 Đường 3/2, Quận 10, TP. Hồ Chí Minh
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 Quang Hưng Mobile. All rights reserved. Designed for web testing.</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:underline">Điều khoản sử dụng</a>
+        <span>&middot;</span>
+        <a href="#" class="hover:underline">Bản đồ trang web</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING CONTACT BUTTONS ==================== -->
+  <div class="floating-widget">
+    
+    <!-- Pulse Ring Call Button -->
+    <a href="tel:18006601" class="floating-btn bg-emerald-500" title="Gọi tổng đài">
+      <div class="pulse-ring border-emerald-500"></div>
+      <svg class="w-6 h-6 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+      </svg>
+    </a>
+
+    <!-- Facebook Float -->
+    <a href="https://facebook.com" target="_blank" class="floating-btn bg-brand-blue" title="Chat Facebook Messenger">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+      </svg>
+    </a>
+
+    <!-- Zalo Float -->
+    <a href="https://zalo.me" target="_blank" class="floating-btn bg-sky-500 font-extrabold text-[11px]" title="Chat Zalo">
+      Zalo
+    </a>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

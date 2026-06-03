@@ -1,0 +1,165 @@
+/* Custom styles for Quang Hưng Mobile */
+
+/* Import Google Font - Outfit for tech-focused visual hierarchy */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-red: #d70018;
+  --primary-red-hover: #b80012;
+  --secondary-blue: #0974e8;
+  --zalo-blue: #0068ff;
+  --dark-slate: #0f172a;
+  --bg-gradient-start: #fff1f2;
+  --bg-gradient-end: #ffffff;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  scroll-behavior: smooth;
+  background-color: #f8fafc;
+}
+
+/* Custom Scrollbar for sleek retail feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red);
+}
+
+/* Glowing & Hover Effects */
+.btn-red-glow {
+  box-shadow: 0 4px 14px 0 rgba(215, 0, 24, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-red-glow:hover {
+  box-shadow: 0 6px 20px 0 rgba(215, 0, 24, 0.6);
+  transform: translateY(-2px);
+}
+
+.card-hover-effect {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Floating Contact Widget CSS */
+.floating-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.floating-btn:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Pulsing rings for floating buttons to attract attention */
+.pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: pulse-animation 2s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism Navigation */
+.nav-glass {
+  background: rgba(215, 0, 24, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Banner Slider styles */
+.slider-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide-item {
+  min-width: 100%;
+}
+
+/* Custom badges */
+.badge-discount {
+  background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+}
+
+.badge-installment {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+/* Search results suggestions box */
+.suggestion-box {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* Custom Zoom for product detail page gallery */
+.zoom-container {
+  overflow: hidden;
+}
+
+.zoom-image {
+  transition: transform 0.5s ease;
+}
+
+.zoom-image:hover {
+  transform: scale(1.12);
+}
