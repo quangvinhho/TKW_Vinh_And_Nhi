@@ -1,0 +1,28 @@
+{
+  "name": "tkw_vinh_and_nhi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./css/input.css -o ./css/output.css",
+    "watch:css": "npx tailwindcss -i ./css/input.css -o ./css/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quangvinhho/TKW_Vinh_And_Nhi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/quangvinhho/TKW_Vinh_And_Nhi/issues"
+  },
+  "homepage": "https://github.com/quangvinhho/TKW_Vinh_And_Nhi#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.17"
+  }
+}
