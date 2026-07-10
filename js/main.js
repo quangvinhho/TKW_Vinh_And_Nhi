@@ -195,7 +195,7 @@ function initHomeSlider() {
 
   function goToSlide(index) {
     currentIndex = (index + slideCount) % slideCount;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    track.style.transform = `translateX(-${(currentIndex * 100) / slideCount}%)`;
     updateDots();
   }
 
@@ -328,8 +328,22 @@ function initProductFilters() {
     });
   });
 
-  // Initial render
-  renderProducts('all');
+  // Initial render based on URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialBrand = urlParams.get('brand') || 'all';
+
+  // Highlight the correct filter button on load
+  const targetBtn = Array.from(filterButtons).find(btn => btn.getAttribute('data-brand').toLowerCase() === initialBrand.toLowerCase());
+  if (targetBtn) {
+    filterButtons.forEach(b => {
+      b.classList.remove('bg-red-600', 'text-white', 'border-red-600');
+      b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+    });
+    targetBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+    targetBtn.classList.add('bg-red-600', 'text-white', 'border-red-600');
+  }
+
+  renderProducts(initialBrand);
 }
 
 // --- Autocomplete Search ---
@@ -421,6 +435,12 @@ function initProductDetailPage() {
   if (mainImg) {
     mainImg.src = product.image;
     mainImg.alt = product.name;
+  }
+
+  const primaryThumbImg = document.querySelector('.gallery-thumb[data-img="primary"] img');
+  if (primaryThumbImg) {
+    primaryThumbImg.src = product.image;
+    primaryThumbImg.alt = product.name;
   }
 
   // Detailed specs table rendering
@@ -633,6 +653,79 @@ function initCartPage() {
   renderCartList();
 }
 
+// --- Warranty Page Controller ---
+function initWarrantyPage() {
+  const form = document.getElementById('warranty-search-form');
+  const resultDiv = document.getElementById('warranty-result');
+  if (!form || !resultDiv) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const imei = document.getElementById('warranty-imei').value.trim();
+    if (!imei) return;
+
+    // Simulate looking up warranty status
+    resultDiv.classList.remove('hidden');
+    
+    // Simple deterministic hashing based on IMEI to return consistent mock data
+    const statuses = [
+      { status: 'Còn bảo hành', date: '18/11/2026', type: 'Bảo hành Vàng nguồn + màn hình + phần cứng (1 đổi 1)' },
+      { status: 'Còn bảo hành', date: '05/02/2027', type: 'Bảo hành tiêu chuẩn chính hãng Apple/Samsung' },
+      { status: 'Hết bảo hành', date: '10/04/2025', type: 'Bảo hành tiêu chuẩn chính hãng' }
+    ];
+    
+    const hash = imei.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const res = statuses[hash % statuses.length];
+    
+    resultDiv.innerHTML = `
+      <div class="border rounded-2xl p-5 ${res.status === 'Còn bảo hành' ? 'bg-emerald-50/50 border-emerald-200' : 'bg-slate-50 border-slate-200'}">
+        <h4 class="font-extrabold text-sm ${res.status === 'Còn bảo hành' ? 'text-emerald-700' : 'text-slate-700'} mb-3">Kết quả tra cứu IMEI: ${imei}</h4>
+        <div class="space-y-2 text-xs font-semibold">
+          <div class="flex justify-between items-center border-b border-slate-100/50 pb-2">
+            <span class="text-slate-400">Trạng thái:</span>
+            <span class="${res.status === 'Còn bảo hành' ? 'text-emerald-600' : 'text-rose-600'} font-bold">${res.status}</span>
+          </div>
+          <div class="flex justify-between items-center border-b border-slate-100/50 pb-2">
+            <span class="text-slate-400">Ngày hết hạn:</span>
+            <span class="text-slate-800">${res.date}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400 shrink-0">Gói bảo hành:</span>
+            <span class="text-slate-800 text-right max-w-[200px] sm:max-w-xs md:max-w-md truncate">${res.type}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// --- Promotions Page Controller ---
+function initPromotionsPage() {
+  const buttons = document.querySelectorAll('.copy-coupon-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.code;
+      if (!code) return;
+
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(`Đã sao chép mã giảm giá: ${code}`);
+        const oldText = btn.innerText;
+        btn.innerText = 'Đã sao chép!';
+        btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+        btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+        
+        setTimeout(() => {
+          btn.innerText = oldText;
+          btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+          btn.classList.add('bg-red-600', 'hover:bg-red-700');
+        }, 2000);
+      }).catch(err => {
+        console.error('Lỗi khi sao chép mã: ', err);
+      });
+    });
+  });
+}
+
 // DOM content load orchestration
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
@@ -650,5 +743,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (document.getElementById('cart-items-container')) {
     initCartPage();
+  }
+  if (document.getElementById('warranty-search-form')) {
+    initWarrantyPage();
+  }
+  if (document.querySelector('.copy-coupon-btn')) {
+    initPromotionsPage();
   }
 });

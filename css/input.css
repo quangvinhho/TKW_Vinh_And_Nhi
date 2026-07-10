@@ -4,8 +4,8 @@
 
 /* Custom styles for Quang Hưng Mobile */
 
-/* Import Google Font - Outfit for tech-focused visual hierarchy */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+/* Import Google Fonts: Plus Jakarta Sans (for premium headings) & Inter (for sleek body text) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --primary-red: #d70018;
@@ -18,9 +18,13 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;
   background-color: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Custom Scrollbar for sleek retail feel */
@@ -137,7 +141,10 @@ body {
 }
 
 .slide-item {
+  width: 100%;
   min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
 }
 
 /* Custom badges */

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giỏ Hàng Của Bạn - Quang Hưng Mobile</title>
+  <title>Chính Sách Bảo Hành - Quang Hưng Mobile</title>
+  <meta name="description" content="Tra cứu thời hạn bảo hành điện thoại di động và xem chi tiết chính sách đổi trả sản phẩm tại Quang Hưng Mobile.">
   <!-- Tailwind CSS (Local Build) -->
   <link rel="stylesheet" href="../css/output.css">
 </head>
@@ -40,6 +41,7 @@
             Sản phẩm
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
+          <!-- Simple Dropdown -->
           <div class="absolute left-0 mt-1 hidden group-hover:block w-48 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5 animate-fadeIn">
             <a href="index.html?brand=all" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Tất cả điện thoại</a>
             <a href="index.html?brand=Apple" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Apple (iPhone)</a>
@@ -52,13 +54,13 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           Khuyến mãi
         </a>
-        <a href="warranty.html" class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all">
+        <a href="warranty.html" class="flex items-center gap-1 bg-brand-redHover px-3 py-2 rounded-xl transition-all shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
           Bảo hành
         </a>
       </nav>
 
-      <!-- Search Box -->
+      <!-- Search Box with Autocomplete suggestions -->
       <div class="flex-1 max-w-md relative">
         <div class="relative flex items-center">
           <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." class="w-full bg-white text-slate-800 text-xs pl-4 pr-16 py-2.5 rounded-full border-none focus:outline-none focus:ring-2 focus:ring-red-300 shadow-inner">
@@ -69,18 +71,21 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </button>
         </div>
+        <!-- Suggestion Dropdown (Hidden initially) -->
         <div id="search-suggestions" class="absolute left-0 right-0 mt-1 bg-white text-slate-800 border border-slate-100 rounded-2xl shadow-2xl overflow-hidden z-50 hidden suggestion-box">
-          <!-- Rendered dynamically -->
+          <!-- Suggestion rows will be rendered here via JS -->
         </div>
       </div>
 
-      <!-- Action Area -->
+      <!-- Action Area: Cart and Account -->
       <div class="flex items-center gap-3">
-        <a href="cart.html" class="flex items-center gap-1.5 bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs relative select-none">
+        <!-- Cart Link -->
+        <a href="cart.html" id="header-cart-btn" class="flex items-center gap-1.5 bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs relative select-none">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
           <span class="hidden sm:inline">Giỏ hàng</span>
           <span id="cart-count-badge" class="absolute -top-1.5 -right-1 bg-yellow-400 text-slate-900 font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border border-brand-red shadow">0</span>
         </a>
+
         <!-- User Profile Dropdown -->
         <div class="relative group select-none">
           <button class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs">
@@ -101,142 +106,71 @@
   </header>
 
   <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-4 py-10 flex-1">
     
-    <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2 mb-8">
+    <!-- Title -->
+    <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2 mb-8 uppercase">
       <span class="w-2 h-7 bg-brand-red rounded-full block"></span>
-      GIỎ HÀNG CỦA BẠN
+      Chính sách & Tra cứu bảo hành
     </h1>
 
-    <!-- Empty Cart state -->
-    <div id="empty-cart-state" class="hidden text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
-      <div class="w-20 h-20 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center text-slate-300">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-        </svg>
-      </div>
-      <h3 class="text-slate-700 font-extrabold text-lg">Giỏ hàng của bạn đang trống</h3>
-      <p class="text-slate-400 text-xs font-semibold max-w-sm">Hãy quay lại trang chủ và lựa chọn những mẫu điện thoại ưng ý với giá ưu đãi nhé!</p>
-      <a href="index.html" class="mt-2 bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-md transition-all">
-        Quay lại mua sắm
-      </a>
-    </div>
-
-    <!-- Main Grid (Cart is populated) -->
-    <div id="cart-summary-box" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
-      <!-- Cart Items List and Billing Form (8cols) -->
-      <div class="lg:col-span-8 flex flex-col gap-6">
-        
-        <!-- Cart Items container -->
-        <div class="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm flex flex-col gap-4" id="cart-items-container">
-          <!-- Populated dynamically via JS -->
+      <!-- Warranty Policy Section (8cols) -->
+      <section class="lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm space-y-6">
+        <h2 class="text-base font-extrabold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
+          <span class="w-1.5 h-4 bg-red-600 rounded-full block"></span>
+          Chính sách bảo hành vàng tại Quang Hưng
+        </h2>
+
+        <div class="space-y-4 text-xs font-semibold text-slate-600">
+          <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+            <h3 class="text-sm font-extrabold text-slate-800 mb-2">1. Lỗi 1 đổi 1 trong 30 ngày</h3>
+            <p class="leading-relaxed text-slate-500">
+              Đối với các sản phẩm điện thoại di động chính hãng gặp lỗi phần cứng do nhà sản xuất, khách hàng sẽ được đổi ngay sản phẩm mới cùng loại 100% hoàn toàn miễn phí.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+            <h3 class="text-sm font-extrabold text-slate-800 mb-2">2. Bảo hành phần cứng 12 tháng</h3>
+            <p class="leading-relaxed text-slate-500">
+              Quang Hưng Mobile cam kết bảo hành sửa chữa và thay thế linh kiện chính hãng miễn phí trong vòng 12 tháng đối với nguồn, màn hình, camera, loa và các chi tiết phần cứng khác của máy.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+            <h3 class="text-sm font-extrabold text-slate-800 mb-2">3. Điều kiện từ chối bảo hành</h3>
+            <p class="leading-relaxed text-slate-500">
+              Sản phẩm bị ngấm nước, rơi vỡ, móp méo do tác động ngoại lực của người dùng; sản phẩm đã bị can thiệp phần cứng hoặc sửa chữa tại các cơ sở không thuộc hệ thống Quang Hưng Mobile.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <!-- Shipping & Checkout Information Form -->
-        <div class="bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm">
-          <h3 class="text-base font-extrabold text-slate-800 border-b border-slate-100 pb-3 mb-6 flex items-center gap-2">
-            <span class="w-1.5 h-4 bg-red-600 rounded-full block"></span>
-            Thông Tin Giao Hàng & Thanh Toán
-          </h3>
-          
-          <form id="checkout-form" class="space-y-4">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Full name -->
-              <div>
-                <label for="checkout-fullname" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Họ và tên khách hàng *</label>
-                <input type="text" id="checkout-fullname" required placeholder="Nhập tên của bạn" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
-              </div>
-              
-              <!-- Phone -->
-              <div>
-                <label for="checkout-phone" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Số điện thoại *</label>
-                <input type="tel" id="checkout-phone" required placeholder="Nhập số điện thoại nhận hàng" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
-              </div>
-            </div>
+      <!-- Interactive IMEI Check Widget (4cols) -->
+      <aside class="lg:col-span-4 bg-white rounded-3xl border border-slate-100 p-6 shadow-sm flex flex-col gap-6 sticky top-24">
+        <h2 class="text-sm font-extrabold text-slate-800 border-b border-slate-100 pb-3 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 bg-red-600 rounded-full block"></span>
+          Tra cứu hạn bảo hành
+        </h2>
 
-            <!-- Address -->
-            <div>
-              <label for="checkout-address" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Địa chỉ giao hàng nhận hàng *</label>
-              <input type="text" id="checkout-address" required placeholder="Số nhà, ngõ hẻm, tên đường, phường/xã, quận/huyện" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
-            </div>
-
-            <!-- Payment Option capsules -->
-            <div>
-              <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Phương thức thanh toán</label>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <label class="border border-red-600 bg-rose-50/20 rounded-xl p-3.5 flex items-center gap-3 cursor-pointer select-none">
-                  <input type="radio" name="payment-method" checked class="text-red-600 focus:ring-red-500">
-                  <div class="text-xs">
-                    <span class="block font-bold text-slate-800">COD</span>
-                    <span class="text-[10px] text-slate-400 font-medium">Thanh toán khi nhận hàng</span>
-                  </div>
-                </label>
-
-                <label class="border border-slate-200 hover:border-red-400 rounded-xl p-3.5 flex items-center gap-3 cursor-pointer select-none">
-                  <input type="radio" name="payment-method" class="text-red-600 focus:ring-red-500">
-                  <div class="text-xs">
-                    <span class="block font-bold text-slate-800">Chuyển khoản</span>
-                    <span class="text-[10px] text-slate-400 font-medium">Qua ứng dụng ngân hàng</span>
-                  </div>
-                </label>
-
-                <label class="border border-slate-200 hover:border-red-400 rounded-xl p-3.5 flex items-center gap-3 cursor-pointer select-none">
-                  <input type="radio" name="payment-method" class="text-red-600 focus:ring-red-500">
-                  <div class="text-xs">
-                    <span class="block font-bold text-slate-800">Thẻ Visa/Master</span>
-                    <span class="text-[10px] text-slate-400 font-medium">Thanh toán trực tuyến</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <!-- Submit action -->
-            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-4 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md transform hover:-translate-y-0.5 mt-4">
-              Xác Nhận Đặt Hàng Ngay
-            </button>
-          </form>
-
-        </div>
-
-      </div>
-
-      <!-- Pricing Summary Panel (4cols) -->
-      <div class="lg:col-span-4 bg-white rounded-3xl border border-slate-100 p-6 shadow-sm flex flex-col gap-5 sticky top-24">
-        <h3 class="text-sm font-extrabold text-slate-800 border-b border-slate-100 pb-3">
-          Tóm Tắt Đơn Hàng
-        </h3>
-        
-        <div class="space-y-3.5 text-xs font-semibold">
-          <div class="flex items-center justify-between text-slate-400">
-            <span>Tạm tính (<span id="cart-total-qty">0 sản phẩm</span>)</span>
-            <span class="text-slate-700 font-bold" id="cart-temp-total">0đ</span>
+        <form id="warranty-search-form" class="space-y-4">
+          <div>
+            <label for="warranty-imei" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Nhập mã IMEI hoặc SĐT *</label>
+            <input type="text" id="warranty-imei" required placeholder="Nhập IMEI (15 số) hoặc SĐT mua hàng" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
           </div>
           
-          <div class="flex items-center justify-between text-slate-400">
-            <span>Phí vận chuyển</span>
-            <span class="text-emerald-500 font-bold">Miễn phí</span>
-          </div>
+          <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md select-none">
+            Kiểm tra ngay
+          </button>
+        </form>
 
-          <div class="flex items-center justify-between text-slate-400">
-            <span>Giảm giá khuyến mãi</span>
-            <span class="text-slate-700 font-bold">0đ</span>
-          </div>
-
-          <div class="border-t border-slate-100 pt-4 flex items-baseline justify-between">
-            <span class="text-sm text-slate-800 font-extrabold">Tổng tiền:</span>
-            <span class="text-2xl font-black text-red-600" id="cart-final-total">0đ</span>
-          </div>
+        <!-- Dynamic Results Container -->
+        <div id="warranty-result" class="hidden">
+          <!-- JS dynamic content -->
         </div>
 
-        <div class="border-t border-slate-50 pt-4">
-          <a href="index.html" class="w-full bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 font-bold py-3.5 rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Tiếp tục mua sắm
-          </a>
-        </div>
-      </div>
+      </aside>
 
     </div>
 
@@ -245,36 +179,74 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-white text-slate-600 border-t border-slate-200 pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      
+      <!-- Info Column 1 -->
       <div>
         <h4 class="text-slate-900 font-extrabold text-sm mb-4 tracking-wider uppercase">Về VN MOBILE</h4>
         <p class="text-xs leading-relaxed text-slate-500 mb-4">
           VN MOBILE là hệ thống bán lẻ điện thoại di động chính hãng, cam kết mang đến sản phẩm chất lượng tốt nhất cùng mức giá cạnh tranh nhất.
         </p>
+        <div class="flex items-center gap-3">
+          <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-red-600 hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-red-600 hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+          </a>
+        </div>
       </div>
+
+      <!-- Info Column 2 -->
       <div>
         <h4 class="text-slate-900 font-extrabold text-sm mb-4 tracking-wider uppercase">Chính Sách Hỗ Trợ</h4>
         <ul class="space-y-2.5 text-xs text-slate-500">
           <li><a href="warranty.html" class="hover:text-red-500 transition-colors">Chính sách bảo hành đổi trả</a></li>
           <li><a href="#" class="hover:text-red-500 transition-colors">Chính sách mua trả góp 0%</a></li>
           <li><a href="#" class="hover:text-red-500 transition-colors">Chính sách giao hàng toàn quốc</a></li>
+          <li><a href="#" class="hover:text-red-500 transition-colors">Quy định bảo mật thông tin</a></li>
         </ul>
       </div>
+
+      <!-- Info Column 3 -->
       <div>
         <h4 class="text-slate-900 font-extrabold text-sm mb-4 tracking-wider uppercase">Tổng Đài Hỗ Trợ</h4>
         <ul class="space-y-2.5 text-xs text-slate-500">
-          <li>Mua hàng: 1800 6601 (7:30 - 22:00)</li>
-          <li>Bảo hành: 1800 6602 (8:00 - 21:00)</li>
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-slate-900 shrink-0">Mua hàng:</span>
+            <a href="tel:18006601" class="hover:text-red-500 transition-colors">1800 6601 (7:30 - 22:00)</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-slate-900 shrink-0">Bảo hành:</span>
+            <a href="tel:18006602" class="hover:text-red-500 transition-colors">1800 6602 (8:00 - 21:00)</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="font-bold text-slate-900 shrink-0">Góp ý:</span>
+            <a href="tel:18006603" class="hover:text-red-500 transition-colors">1800 6603 (24/7)</a>
+          </li>
         </ul>
       </div>
+
+      <!-- Info Column 4 -->
       <div>
         <h4 class="text-slate-900 font-extrabold text-sm mb-4 tracking-wider uppercase">Địa Chỉ Cửa Hàng</h4>
-        <p class="text-xs leading-relaxed text-slate-500">
+        <p class="text-xs leading-relaxed text-slate-500 mb-2">
           Hà Nội: 123 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội
         </p>
+        <p class="text-xs leading-relaxed text-slate-500">
+          TP.HCM: 456 Đường 3/2, Quận 10, TP. Hồ Chí Minh
+        </p>
       </div>
+
     </div>
-    <div class="max-w-7xl mx-auto px-4 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
-      <p>&copy; 2026 VN MOBILE. All rights reserved.</p>
+
+    <!-- Copyright -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <p>&copy; 2026 VN MOBILE. All rights reserved. Designed for web testing.</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:underline hover:text-slate-600">Điều khoản sử dụng</a>
+        <span>&middot;</span>
+        <a href="#" class="hover:underline hover:text-slate-600">Bản đồ trang web</a>
+      </div>
     </div>
   </footer>
 
@@ -286,7 +258,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
       </svg>
     </a>
-    <a href="https://facebook.com" target="_blank" class="floating-btn bg-brand-blue" title="Chat Messenger">
+    <a href="https://facebook.com" target="_blank" class="floating-btn bg-brand-blue" title="Chat Facebook Messenger">
       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
       </svg>
@@ -296,6 +268,7 @@
     </a>
   </div>
 
+  <!-- Custom Scripts -->
   <script src="../js/main.js"></script>
 </body>
 </html>
