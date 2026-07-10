@@ -624,6 +624,17 @@ function initCartPage() {
     }
   };
 
+  // Pre-fill fields from user profile if logged in
+  const currentUser = getUser();
+  if (currentUser) {
+    const fnInput = document.getElementById('checkout-fullname');
+    const phInput = document.getElementById('checkout-phone');
+    const adInput = document.getElementById('checkout-address');
+    if (fnInput) fnInput.value = currentUser.fullname || '';
+    if (phInput) phInput.value = currentUser.phone || '';
+    if (adInput) adInput.value = currentUser.address || '';
+  }
+
   // Form submission / simulation
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', (e) => {
@@ -638,8 +649,22 @@ function initCartPage() {
         return;
       }
 
-      // Success order simulation
-      alert(`Cảm ơn anh/chị ${fullname}! Đơn hàng của anh/chị đã được tiếp nhận thành công. Nhân viên Quang Hưng Mobile sẽ liên hệ qua số điện thoại ${phone} để xác nhận trong vòng 15 phút.`);
+      // Success order simulation — save order to history
+      const order = {
+        id: 'DH' + Date.now().toString().slice(-8),
+        date: new Date().toLocaleString('vi-VN'),
+        customer: { fullname, phone, address },
+        items: cart.map(item => ({ ...item })),
+        total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+        status: 'Đang xử lý'
+      };
+
+      // Save to order history in localStorage
+      const orderHistory = JSON.parse(localStorage.getItem('quang_hung_orders')) || [];
+      orderHistory.unshift(order);
+      localStorage.setItem('quang_hung_orders', JSON.stringify(orderHistory));
+
+      alert(`Cảm ơn anh/chị ${fullname}! Đơn hàng ${order.id} đã được tiếp nhận thành công. Nhân viên Quang Hưng Mobile sẽ liên hệ qua số điện thoại ${phone} để xác nhận trong vòng 15 phút.`);
       
       // Clear Cart
       cart = [];
@@ -726,10 +751,487 @@ function initPromotionsPage() {
   });
 }
 
+// --- Order History Page Controller ---
+function initOrderHistoryPage() {
+  const container = document.getElementById('order-history-container');
+  const emptyState = document.getElementById('empty-order-state');
+  const countBadge = document.getElementById('order-count-badge');
+
+  if (!container) return;
+
+  const orders = JSON.parse(localStorage.getItem('quang_hung_orders')) || [];
+
+  if (orders.length === 0) {
+    container.classList.add('hidden');
+    if (emptyState) emptyState.classList.remove('hidden');
+    return;
+  }
+
+  if (emptyState) emptyState.classList.add('hidden');
+  container.classList.remove('hidden');
+
+  // Show order count
+  if (countBadge) {
+    countBadge.classList.remove('hidden');
+    countBadge.innerHTML = `
+      <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+      Tổng cộng ${orders.length} đơn hàng
+    `;
+  }
+
+  // Status config
+  function getStatusConfig(status) {
+    switch (status) {
+      case 'Đã giao':
+        return { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', dot: 'bg-emerald-500', icon: '✓' };
+      case 'Đang giao':
+        return { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200', dot: 'bg-blue-500', icon: '🚚' };
+      case 'Đã hủy':
+        return { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200', dot: 'bg-rose-500', icon: '✕' };
+      default:
+        return { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200', dot: 'bg-amber-500', icon: '⏳' };
+    }
+  }
+
+  container.innerHTML = `
+    <div class="space-y-5">
+      ${orders.map((order, idx) => {
+        const sc = getStatusConfig(order.status);
+        const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+        return `
+          <!-- Order Card -->
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden card-hover-effect">
+            <!-- Order Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 border-b border-slate-100 bg-slate-50/50">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl ${sc.bg} ${sc.text} flex items-center justify-center font-bold text-lg shrink-0">
+                  ${sc.icon}
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-slate-800 font-extrabold text-sm">Đơn hàng #${order.id}</h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${sc.bg} ${sc.text} ${sc.border} border">${order.status}</span>
+                  </div>
+                  <p class="text-slate-400 text-[11px] mt-0.5 flex items-center gap-1.5">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    ${order.date}
+                    <span class="text-slate-300">•</span>
+                    ${totalItems} sản phẩm
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="text-right">
+                  <p class="text-[10px] text-slate-400 font-medium">Tổng tiền</p>
+                  <p class="text-red-600 font-extrabold text-base">${formatVND(order.total)}</p>
+                </div>
+                <button onclick="toggleOrderDetail(${idx})" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors shrink-0">
+                  <svg id="order-chevron-${idx}" class="w-4 h-4 text-slate-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Order Detail (hidden by default) -->
+            <div id="order-detail-${idx}" class="hidden">
+              <!-- Customer Info -->
+              <div class="px-5 py-4 border-b border-slate-50 bg-slate-50/30">
+                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">Thông tin giao hàng</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <span class="text-slate-700 font-semibold">${order.customer.fullname}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    <span class="text-slate-700 font-semibold">${order.customer.phone}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="text-slate-700 font-semibold">${order.customer.address}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Items list -->
+              <div class="px-5 py-4 space-y-3">
+                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5">Chi tiết sản phẩm</h4>
+                ${order.items.map(item => `
+                  <div class="flex items-center gap-4 p-3 rounded-xl bg-slate-50/70 border border-slate-100">
+                    <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-contain bg-white rounded-lg p-1 shrink-0 border border-slate-100">
+                    <div class="flex-1 min-w-0">
+                      <h5 class="text-slate-800 font-bold text-xs truncate">${item.name}</h5>
+                      <span class="text-slate-400 text-[10px] capitalize">${item.brand || ''}</span>
+                      <div class="flex items-baseline gap-2 mt-0.5">
+                        <span class="text-red-600 font-extrabold text-xs">${formatVND(item.price)}</span>
+                        <span class="text-slate-400 text-[10px]">× ${item.quantity}</span>
+                      </div>
+                    </div>
+                    <div class="text-right shrink-0">
+                      <span class="text-slate-800 font-bold text-xs">${formatVND(item.price * item.quantity)}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Order total summary -->
+              <div class="px-5 py-4 border-t border-slate-100 bg-slate-50/30">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-500 font-medium">Tạm tính</span>
+                  <span class="text-slate-700 font-semibold">${formatVND(order.total)}</span>
+                </div>
+                <div class="flex justify-between items-center text-xs mt-1.5">
+                  <span class="text-slate-500 font-medium">Phí vận chuyển</span>
+                  <span class="text-emerald-600 font-semibold">Miễn phí</span>
+                </div>
+                <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-200">
+                  <span class="text-slate-800 font-bold text-sm">Tổng cộng</span>
+                  <span class="text-red-600 font-extrabold text-lg">${formatVND(order.total)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <!-- Clear History Button -->
+    <div class="mt-8 text-center">
+      <button onclick="clearOrderHistory()" class="text-xs text-slate-400 hover:text-red-500 transition-colors font-medium inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+        Xóa toàn bộ lịch sử mua hàng
+      </button>
+    </div>
+  `;
+}
+
+// Toggle order detail expand/collapse
+window.toggleOrderDetail = function(idx) {
+  const detail = document.getElementById(`order-detail-${idx}`);
+  const chevron = document.getElementById(`order-chevron-${idx}`);
+  if (detail) {
+    detail.classList.toggle('hidden');
+    if (chevron) {
+      chevron.classList.toggle('rotate-180');
+    }
+  }
+};
+
+// --- User Account State & Login Modal ---
+function getUser() {
+  const isLoggedOut = localStorage.getItem('quang_hung_logged_out') === 'true';
+  if (isLoggedOut) return null;
+  
+  const savedUser = localStorage.getItem('quang_hung_user');
+  if (savedUser) {
+    return JSON.parse(savedUser);
+  }
+  
+  // Default coursework user profile
+  return {
+    fullname: "Ong Sao",
+    email: "ongsao@gmail.com",
+    phone: "0901234567",
+    address: "123 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội"
+  };
+}
+
+function saveUser(user) {
+  localStorage.setItem('quang_hung_user', JSON.stringify(user));
+  localStorage.removeItem('quang_hung_logged_out');
+  updateUserHeader();
+}
+
+window.logout = function() {
+  localStorage.setItem('quang_hung_logged_out', 'true');
+  localStorage.removeItem('quang_hung_user');
+  updateUserHeader();
+  showToast('Đã đăng xuất tài khoản thành công.');
+  // If we are on profile.html or order-history.html, redirect to index.html
+  if (window.location.pathname.includes('profile.html') || window.location.pathname.includes('order-history.html')) {
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1000);
+  }
+};
+
+function updateUserHeader() {
+  const container = document.getElementById('user-header-section');
+  if (!container) return;
+
+  const user = getUser();
+  
+  if (!user) {
+    container.innerHTML = `
+      <button onclick="openLoginModal()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-[10px] sm:text-xs px-3.5 py-2 rounded-xl shadow transition-colors flex items-center gap-1 select-none">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3 3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+        Đăng nhập
+      </button>
+    `;
+    return;
+  }
+
+  // Check if custom avatar exists, otherwise get initials
+  let avatarMarkup = '';
+  if (user.avatar) {
+    avatarMarkup = `
+      <div class="w-6 h-6 rounded-full overflow-hidden shrink-0 border border-white">
+        <img src="${user.avatar}" alt="Avatar" class="w-full h-full object-cover">
+      </div>
+    `;
+  } else {
+    const initials = user.fullname ? user.fullname.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'US';
+    avatarMarkup = `
+      <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-900 font-bold text-xs flex items-center justify-center shadow-inner shrink-0 border border-white">
+        ${initials}
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="relative group select-none">
+      <button class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs">
+        ${avatarMarkup}
+        <span class="hidden sm:inline">${user.fullname}</span>
+        <svg class="w-3.5 h-3.5 text-rose-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </button>
+      <div class="absolute right-0 mt-1 hidden group-hover:block w-44 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5 z-50">
+        <a href="profile.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Tài khoản</a>
+        <a href="order-history.html" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Lịch sử mua hàng</a>
+        <button onclick="logout()" class="w-full text-left block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-red-600">Đăng xuất</button>
+      </div>
+    </div>
+  `;
+}
+
+// Open/Close modal functions
+window.openLoginModal = function() {
+  // Remove existing modal if any
+  const existing = document.getElementById('login-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'login-modal';
+  modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 opacity-0';
+  modal.innerHTML = `
+    <!-- Modal content box -->
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 transition-all duration-300 relative">
+      
+      <!-- Close button -->
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-full hover:bg-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Tabs header -->
+      <div class="flex border-b border-slate-100">
+        <button onclick="switchLoginTab('login')" id="tab-login" class="flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-brand-red text-brand-red transition-all focus:outline-none">
+          Đăng nhập
+        </button>
+        <button onclick="switchLoginTab('register')" id="tab-register" class="flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all focus:outline-none">
+          Đăng ký
+        </button>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="p-6 sm:p-8">
+        
+        <!-- Login Form -->
+        <form id="form-login" onsubmit="submitLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="login-email">Địa chỉ Email</label>
+            <input type="email" id="login-email" required placeholder="nhapemail@gmail.com" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="login-password">Mật khẩu</label>
+            <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <button type="submit" class="w-full mt-2 bg-brand-red hover:bg-brand-redHover text-white font-extrabold text-xs py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 btn-red-glow">
+            Đăng nhập ngay
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="form-register" onsubmit="submitRegister(event)" class="space-y-4 hidden">
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="reg-fullname">Họ tên của bạn</label>
+            <input type="text" id="reg-fullname" required placeholder="Nguyễn Văn A" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="reg-phone">Số điện thoại</label>
+            <input type="text" id="reg-phone" required placeholder="0901234567" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="reg-email">Địa chỉ Email</label>
+            <input type="email" id="reg-email" required placeholder="email@gmail.com" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5" for="reg-password">Mật khẩu</label>
+            <input type="password" id="reg-password" required placeholder="••••••••" class="w-full bg-slate-50 text-slate-800 text-xs px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-600 font-semibold">
+          </div>
+          <button type="submit" class="w-full mt-2 bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5">
+            Đăng ký tài khoản
+          </button>
+        </form>
+
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Trigger entrance animation
+  setTimeout(() => {
+    modal.classList.remove('opacity-0');
+    modal.querySelector('.transform').classList.remove('scale-95');
+  }, 50);
+};
+
+window.closeLoginModal = function() {
+  const modal = document.getElementById('login-modal');
+  if (!modal) return;
+  modal.classList.add('opacity-0');
+  modal.querySelector('.transform').classList.add('scale-95');
+  setTimeout(() => modal.remove(), 300);
+};
+
+window.switchLoginTab = function(tab) {
+  const tabLoginBtn = document.getElementById('tab-login');
+  const tabRegisterBtn = document.getElementById('tab-register');
+  const formLogin = document.getElementById('form-login');
+  const formRegister = document.getElementById('form-register');
+
+  if (tab === 'login') {
+    tabLoginBtn.className = 'flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-brand-red text-brand-red transition-all focus:outline-none';
+    tabRegisterBtn.className = 'flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all focus:outline-none';
+    formLogin.classList.remove('hidden');
+    formRegister.classList.add('hidden');
+  } else {
+    tabRegisterBtn.className = 'flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-brand-red text-brand-red transition-all focus:outline-none';
+    tabLoginBtn.className = 'flex-1 py-4 text-center font-extrabold text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-600 transition-all focus:outline-none';
+    formRegister.classList.remove('hidden');
+    formLogin.classList.add('hidden');
+  }
+};
+
+window.submitLogin = function(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  // Look for registered users or default to Ong Sao
+  const mockUser = {
+    fullname: email.split('@')[0].toUpperCase(),
+    email: email,
+    phone: "0901234567",
+    address: "123 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội"
+  };
+  saveUser(mockUser);
+  closeLoginModal();
+  showToast(`Chào mừng ${mockUser.fullname} đã đăng nhập!`);
+};
+
+window.submitRegister = function(e) {
+  e.preventDefault();
+  const fullname = document.getElementById('reg-fullname').value;
+  const phone = document.getElementById('reg-phone').value;
+  const email = document.getElementById('reg-email').value;
+  
+  const mockUser = { fullname, phone, email, address: '' };
+  saveUser(mockUser);
+  closeLoginModal();
+  showToast('Đăng ký tài khoản thành công!');
+};
+
+// Profile Page Controller
+function initProfilePage() {
+  const form = document.getElementById('profile-form');
+  if (!form) return;
+
+  const user = getUser();
+  if (!user) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  // Pre-fill inputs
+  const nameInput = document.getElementById('profile-fullname');
+  const phoneInput = document.getElementById('profile-phone');
+  const emailInput = document.getElementById('profile-email');
+  const addrInput = document.getElementById('profile-address');
+  const avatarLarge = document.getElementById('profile-avatar-large');
+  const avatarInput = document.getElementById('avatar-upload-input');
+
+  if (nameInput) nameInput.value = user.fullname || '';
+  if (phoneInput) phoneInput.value = user.phone || '';
+  if (emailInput) emailInput.value = user.email || '';
+  if (addrInput) addrInput.value = user.address || '';
+
+  // Current avatar state
+  let currentAvatarBase64 = user.avatar || null;
+
+  // Render current avatar
+  function renderProfileAvatar() {
+    if (avatarLarge) {
+      if (currentAvatarBase64) {
+        avatarLarge.innerHTML = `<img src="${currentAvatarBase64}" class="w-full h-full object-cover">`;
+      } else if (user.fullname) {
+        avatarLarge.innerHTML = user.fullname.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+      }
+    }
+  }
+
+  renderProfileAvatar();
+
+  // Listen to file selection
+  if (avatarInput) {
+    avatarInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Size validation: cap it (e.g. 1.5MB) because localStorage has a limit of 5MB
+        if (file.size > 1.5 * 1024 * 1024) {
+          alert('Dung lượng ảnh quá lớn! Vui lòng chọn ảnh dưới 1.5MB để lưu trữ.');
+          avatarInput.value = '';
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          currentAvatarBase64 = event.target.result;
+          renderProfileAvatar();
+          showToast('Đã chọn ảnh đại diện mới. Hãy nhấn "Lưu thay đổi" để áp dụng!');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const updatedUser = {
+      fullname: nameInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      email: emailInput.value.trim(),
+      address: addrInput.value.trim(),
+      avatar: currentAvatarBase64 // Save the Base64 avatar
+    };
+    saveUser(updatedUser);
+    
+    // Rerender profile avatar in case names changed and there was no uploaded avatar
+    renderProfileAvatar();
+    showToast('Đã lưu thông tin tài khoản thành công!');
+  });
+}
+
+// Clear all order history
+window.clearOrderHistory = function() {
+  if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử mua hàng không?')) {
+    localStorage.removeItem('quang_hung_orders');
+    initOrderHistoryPage();
+    showToast('Đã xóa toàn bộ lịch sử mua hàng.');
+  }
+};
+
 // DOM content load orchestration
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   initSearchBar();
+  updateUserHeader();
   
   // Conditionally trigger loaders depending on container availability
   if (document.getElementById('slide-track')) {
@@ -749,5 +1251,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (document.querySelector('.copy-coupon-btn')) {
     initPromotionsPage();
+  }
+  if (document.getElementById('order-history-container')) {
+    initOrderHistoryPage();
+  }
+  if (document.getElementById('profile-form')) {
+    initProfilePage();
   }
 });

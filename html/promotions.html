@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khuyến Mãi - Quang Hưng Mobile</title>
   <meta name="description" content="Xem các chương trình khuyến mãi, mã giảm giá điện thoại chính hãng tốt nhất hiện hành tại Quang Hưng Mobile.">
+  <!-- Google Fonts: Inter + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- Tailwind CSS (Local Build) -->
   <link rel="stylesheet" href="../css/output.css">
 </head>
@@ -86,21 +90,8 @@
           <span id="cart-count-badge" class="absolute -top-1.5 -right-1 bg-yellow-400 text-slate-900 font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border border-brand-red shadow">0</span>
         </a>
 
-        <!-- User Profile Dropdown -->
-        <div class="relative group select-none">
-          <button class="flex items-center gap-1 hover:bg-brand-redHover px-3 py-2 rounded-xl transition-all font-bold text-xs">
-            <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-900 font-bold text-xs flex items-center justify-center shadow-inner shrink-0 border border-white">
-              OS
-            </div>
-            <span class="hidden sm:inline">Ong Sao</span>
-            <svg class="w-3.5 h-3.5 text-rose-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <div class="absolute right-0 mt-1 hidden group-hover:block w-44 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 py-1.5">
-            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Tài khoản</a>
-            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700">Lịch sử mua hàng</a>
-            <a href="#" class="block px-4 py-2 hover:bg-slate-50 font-semibold text-xs text-slate-700 text-red-600">Đăng xuất</a>
-          </div>
-        </div>
+        <!-- User Profile Dropdown Container (rendered via JS) -->
+        <div id="user-header-section" class="relative"></div>
       </div>
     </div>
   </header>
