@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Quản Trị Hệ Thống - VN Mobile</title>
+  <!-- Google Fonts: Inter + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS (Local Build) -->
+  <link rel="stylesheet" href="../css/output.css">
+  <!-- Custom Admin Styles -->
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="bg-slate-50 antialiased flex text-slate-800 font-sans min-h-screen">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="w-64 bg-slate-900 text-slate-300 hidden md:flex flex-col justify-between shrink-0 sticky top-0 h-screen shadow-xl border-r border-slate-800">
+    <div>
+      <!-- Brand Logo -->
+      <div class="px-6 py-6 border-b border-slate-850 flex items-center gap-3">
+        <div class="bg-white text-slate-900 font-black text-xl px-3 py-1 rounded-xl shadow flex items-center justify-center">
+          VN
+        </div>
+        <div>
+          <span class="font-extrabold text-white text-sm tracking-wider block leading-none">VN MOBILE</span>
+          <span class="text-[9px] font-bold text-slate-400 tracking-widest uppercase">Admin Panel</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="px-4 py-6 space-y-1">
+        <a href="#section-overview" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl bg-red-650 text-white font-bold text-xs">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          Tổng Quan Dashboard
+        </a>
+        <a href="#section-products" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white font-bold text-xs text-slate-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+          Kho Hàng & Sản Phẩm
+        </a>
+        <a href="#section-orders" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 hover:text-white font-bold text-xs text-slate-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+          Danh Sách Đơn Hàng
+        </a>
+      </nav>
+    </div>
+
+    <!-- Back to store button -->
+    <div class="p-4 border-t border-slate-850">
+      <a href="index.html" class="flex items-center justify-center gap-2 w-full bg-slate-800 hover:bg-red-650 text-white font-extrabold text-xs py-3 rounded-xl transition-all shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Quay lại Cửa hàng
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <div class="flex-1 flex flex-col min-w-0">
+    
+    <!-- Top Header Bar -->
+    <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 md:px-8 sticky top-0 z-40">
+      <div class="flex items-center gap-3">
+        <!-- Menu toggle on mobile -->
+        <div class="md:hidden bg-slate-900 text-white p-2 rounded-xl">VN</div>
+        <h1 class="text-base font-extrabold text-slate-800 tracking-tight uppercase">Hệ Thống Quản Lý Cửa Hàng</h1>
+      </div>
+      
+      <!-- Date Period Filter -->
+      <div class="flex items-center gap-3">
+        <label for="time-filter" class="text-xs font-bold text-slate-400 uppercase tracking-wider hidden sm:block">Xem theo kỳ báo cáo:</label>
+        <select id="time-filter" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-xs font-extrabold text-slate-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400">
+          <option value="day">Hôm nay (24 Giờ)</option>
+          <option value="week">Tuần này (7 Ngày)</option>
+          <option value="month" selected>Tháng này (30 Ngày)</option>
+          <option value="year">Năm nay (365 Ngày)</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- Content body wrapper -->
+    <main class="flex-1 p-6 md:p-8 space-y-8 overflow-y-auto">
+
+      <!-- ==================== SECTION: OVERVIEW STATISTICS ==================== -->
+      <section id="section-overview" class="space-y-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2">
+            <span class="w-1.5 h-5 bg-red-600 rounded-full block"></span>
+            TỔNG QUAN DOANH THU & LỢI NHUẬN
+          </h2>
+        </div>
+
+        <!-- 3 Stats cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card 1: Revenue -->
+          <div class="admin-card-glass p-6 rounded-3xl border border-slate-100 flex items-center justify-between">
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Tổng Doanh Thu</span>
+              <h3 id="stat-revenue" class="text-2xl font-black text-slate-900 leading-none">0đ</h3>
+              <span class="text-[10px] font-semibold text-emerald-600 flex items-center gap-1 mt-1">
+                ▲ +12.5% so với cùng kỳ
+              </span>
+            </div>
+            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+          </div>
+
+          <!-- Card 2: Expenditures -->
+          <div class="admin-card-glass p-6 rounded-3xl border border-slate-100 flex items-center justify-between">
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Chi Tiêu (Chi phí phát sinh)</span>
+              <h3 id="stat-spending" class="text-2xl font-black text-slate-900 leading-none">0đ</h3>
+              <span class="text-[10px] font-semibold text-red-550 flex items-center gap-1 mt-1">
+                ▼ -3.2% tối ưu vận hành
+              </span>
+            </div>
+            <div class="w-12 h-12 bg-rose-50 text-red-600 rounded-2xl flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+            </div>
+          </div>
+
+          <!-- Card 3: Net Profit -->
+          <div class="admin-card-glass p-6 rounded-3xl border border-slate-100 flex items-center justify-between">
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Lợi Nhuận Thực Tế</span>
+              <h3 id="stat-profit" class="text-2xl font-black text-slate-900 leading-none">0đ</h3>
+              <span class="text-[10px] font-semibold text-emerald-600 flex items-center gap-1 mt-1">
+                ▲ Tỉ suất lợi nhuận đạt 35%
+              </span>
+            </div>
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Column Overview (Revenue Charts & Top/Slow Products) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Chart panel (8cols) -->
+          <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-100 p-6 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+              <h3 class="text-sm font-extrabold text-slate-800 uppercase">Biểu đồ so sánh doanh thu vs chi tiêu</h3>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Đơn vị: Triệu VND</span>
+            </div>
+            
+            <!-- SVG Chart Mock -->
+            <div class="h-64 flex items-end justify-between gap-6 px-4 pt-4 border-b border-slate-100 relative">
+              <!-- Grid background lines -->
+              <div class="absolute bottom-0 left-0 right-0 border-b border-dashed border-slate-100 h-16"></div>
+              <div class="absolute bottom-0 left-0 right-0 border-b border-dashed border-slate-100 h-32"></div>
+              <div class="absolute bottom-0 left-0 right-0 border-b border-dashed border-slate-100 h-48"></div>
+
+              <!-- Bar 1 -->
+              <div class="flex-1 flex flex-col items-center gap-2 z-10">
+                <div class="flex gap-1.5 items-end h-40">
+                  <div class="w-4.5 bg-blue-500 rounded-t-lg h-full" title="Doanh thu: 154Tr"></div>
+                  <div class="w-4.5 bg-rose-500 rounded-t-lg h-2/3" title="Chi tiêu: 98Tr"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Tháng 4</span>
+              </div>
+              <!-- Bar 2 -->
+              <div class="flex-1 flex flex-col items-center gap-2 z-10">
+                <div class="flex gap-1.5 items-end h-40">
+                  <div class="w-4.5 bg-blue-500 rounded-t-lg h-[90%]" title="Doanh thu: 142Tr"></div>
+                  <div class="w-4.5 bg-rose-500 rounded-t-lg h-[55%]" title="Chi tiêu: 88Tr"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Tháng 5</span>
+              </div>
+              <!-- Bar 3 -->
+              <div class="flex-1 flex flex-col items-center gap-2 z-10">
+                <div class="flex gap-1.5 items-end h-40">
+                  <div class="w-4.5 bg-blue-500 rounded-t-lg h-[75%]" title="Doanh thu: 120Tr"></div>
+                  <div class="w-4.5 bg-rose-500 rounded-t-lg h-[45%]" title="Chi tiêu: 72Tr"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Tháng 6</span>
+              </div>
+              <!-- Bar 4 (Current) -->
+              <div class="flex-1 flex flex-col items-center gap-2 z-10">
+                <div class="flex gap-1.5 items-end h-40">
+                  <div class="w-4.5 bg-blue-500 rounded-t-lg h-[100%]" title="Doanh thu: 165Tr"></div>
+                  <div class="w-4.5 bg-rose-500 rounded-t-lg h-[60%]" title="Chi tiêu: 99Tr"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-800 uppercase">Tháng này</span>
+              </div>
+            </div>
+
+            <!-- Legend info -->
+            <div class="flex gap-6 mt-4 text-[10px] font-bold justify-center uppercase">
+              <span class="flex items-center gap-1.5 text-blue-500">
+                <span class="w-3 h-3 bg-blue-500 rounded-sm block"></span> Doanh thu
+              </span>
+              <span class="flex items-center gap-1.5 text-rose-500">
+                <span class="w-3 h-3 bg-rose-500 rounded-sm block"></span> Chi phí (chi tiêu)
+              </span>
+            </div>
+          </div>
+
+          <!-- Top / Slow products panel (4cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-6">
+            <!-- Top Selling -->
+            <div class="bg-white rounded-3xl border border-slate-100 p-5 shadow-sm space-y-4">
+              <h3 class="text-xs font-black text-slate-800 border-b border-slate-100 pb-2.5 uppercase tracking-wide flex items-center gap-1.5">
+                <span class="w-1.5 h-3.5 bg-emerald-500 rounded-full block"></span>
+                Sản phẩm bán chạy nhất
+              </h3>
+              <div class="flex flex-col gap-3.5" id="best-sellers-list">
+                <!-- Dynamically Rendered -->
+              </div>
+            </div>
+
+            <!-- Slow Moving -->
+            <div class="bg-white rounded-3xl border border-slate-100 p-5 shadow-sm space-y-4">
+              <h3 class="text-xs font-black text-slate-800 border-b border-slate-100 pb-2.5 uppercase tracking-wide flex items-center gap-1.5">
+                <span class="w-1.5 h-3.5 bg-red-500 rounded-full block"></span>
+                Sản phẩm bán chậm / Tồn nhiều
+              </h3>
+              <div class="flex flex-col gap-3.5" id="slow-moving-list">
+                <!-- Dynamically Rendered -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: PRODUCTS & INVENTORY ==================== -->
+      <section id="section-products" class="bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm space-y-6">
+        
+        <!-- Section header with metrics and add button -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div class="space-y-1">
+            <h2 class="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2">
+              <span class="w-1.5 h-5 bg-red-600 rounded-full block"></span>
+              QUẢN LÝ KHO HÀNG & SẢN PHẨM
+            </h2>
+            <div class="flex items-center gap-4 text-xs font-semibold text-slate-400">
+              <span>Tổng lượng tồn kho: <strong id="metric-total-stock" class="text-slate-700">0 máy</strong></span>
+              <span>•</span>
+              <span id="metric-warning-stock">Tất cả ổn định</span>
+            </div>
+          </div>
+          
+          <button onclick="openAddProductModal()" class="bg-slate-900 hover:bg-red-650 text-white font-extrabold text-xs px-5 py-3.5 rounded-xl transition-all shadow flex items-center gap-2 select-none uppercase tracking-wider shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            Thêm sản phẩm mới
+          </button>
+        </div>
+
+        <!-- Products table container -->
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr class="border-b border-slate-200 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+                <th class="py-3 px-4">Mã số ID</th>
+                <th class="py-3 px-4">Tên điện thoại</th>
+                <th class="py-3 px-4">Đơn giá</th>
+                <th class="py-3 px-4">Trạng thái kho</th>
+                <th class="py-3 px-4 text-center">Đã bán (Tháng)</th>
+                <th class="py-3 px-4 text-right">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Dynamically rendered rows -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== SECTION: ORDERS ==================== -->
+      <section id="section-orders" class="bg-white rounded-3xl border border-slate-100 p-6 md:p-8 shadow-sm space-y-6">
+        
+        <!-- Section header -->
+        <div class="border-b border-slate-100 pb-5">
+          <h2 class="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2">
+            <span class="w-1.5 h-5 bg-red-600 rounded-full block"></span>
+            QUẢN LÝ ĐƠN HÀNG GIAO DỊCH
+          </h2>
+          <p class="text-xs font-semibold text-slate-400 mt-1">
+            Theo dõi, xác nhận đơn hàng giao dịch và cập nhật trạng thái đơn hàng của người dùng.
+          </p>
+        </div>
+
+        <!-- Orders table container -->
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left border-collapse min-w-[850px]">
+            <thead>
+              <tr class="border-b border-slate-200 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+                <th class="py-3.5 px-4">Mã Đơn hàng</th>
+                <th class="py-3.5 px-4">Ngày mua</th>
+                <th class="py-3.5 px-4 text-left">Khách hàng</th>
+                <th class="py-3.5 px-4">Sản phẩm</th>
+                <th class="py-3.5 px-4">Thành tiền</th>
+                <th class="py-3.5 px-4">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Dynamically populated from localStorage -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== POPUP MODAL: ADD / EDIT PRODUCT ==================== -->
+  <div id="admin-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[150] flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
+      
+      <!-- Close button -->
+      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-650 transition-colors p-1.5 rounded-full hover:bg-slate-50">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Modal Header -->
+      <h3 id="modal-title" class="text-base font-black text-slate-800 uppercase border-b border-slate-100 pb-3.5 mb-6">
+        Thêm sản phẩm mới
+      </h3>
+
+      <!-- Modal Form -->
+      <form id="prod-form" class="space-y-4">
+        
+        <!-- Name -->
+        <div>
+          <label for="prod-name" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Tên sản phẩm *</label>
+          <input type="text" id="prod-name" required placeholder="Ví dụ: iPhone 16 Pro Max 256GB" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+        </div>
+
+        <!-- Brand & Stock -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Brand -->
+          <div>
+            <label for="prod-brand" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Thương hiệu *</label>
+            <input type="text" id="prod-brand" required placeholder="Ví dụ: Apple" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+          </div>
+          <!-- Stock -->
+          <div>
+            <label for="prod-stock" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Số lượng nhập kho *</label>
+            <input type="number" id="prod-stock" required min="0" placeholder="Ví dụ: 15" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+          </div>
+        </div>
+
+        <!-- Prices -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Price -->
+          <div>
+            <label for="prod-price" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Giá bán khuyến mãi (đ) *</label>
+            <input type="number" id="prod-price" required min="0" placeholder="Ví dụ: 29490000" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+          </div>
+          <!-- Original Price -->
+          <div>
+            <label for="prod-original-price" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Giá gốc niêm yết (đ)</label>
+            <input type="number" id="prod-original-price" min="0" placeholder="Ví dụ: 34990000" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+          </div>
+        </div>
+
+        <!-- Image URL -->
+        <div>
+          <label for="prod-image" class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-2">Đường dẫn ảnh sản phẩm (Local / Link)</label>
+          <input type="text" id="prod-image" placeholder="Ví dụ: ../images/iphone-15-pro-max-256-99.png" class="w-full bg-slate-50 border border-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 font-semibold">
+        </div>
+
+        <!-- Submit btn -->
+        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md mt-4">
+          Xác Nhận Lưu Thay Đổi
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Primary Storefront Data loader (main.js) -->
+  <script src="../js/main.js"></script>
+  <!-- Admin Controller script -->
+  <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ const PRODUCTS = [
     brand: "Apple",
     price: 29490000,
     originalPrice: 34990000,
-    image: "../images/iphone_mockup.png",
+    image: "../images/iphone-15-pro-max-256-99.png",
     rating: 5,
     specs: { ram: "8GB", storage: "256GB", battery: "4441 mAh", screen: "6.7 inch Super Retina" },
     discount: "15%",
@@ -19,7 +19,7 @@ const PRODUCTS = [
     brand: "Samsung",
     price: 26990000,
     originalPrice: 33990000,
-    image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80",
+    image: "../images/s24.webp",
     rating: 5,
     specs: { ram: "12GB", storage: "256GB", battery: "5000 mAh", screen: "6.8 inch Dynamic AMOLED" },
     discount: "20%",
@@ -32,7 +32,7 @@ const PRODUCTS = [
     brand: "Oppo",
     price: 13990000,
     originalPrice: 16990000,
-    image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80",
+    image: "../images/oppo-reno.avif",
     rating: 4,
     specs: { ram: "12GB", storage: "512GB", battery: "4600 mAh", screen: "6.7 inch AMOLED 120Hz" },
     discount: "17%",
@@ -45,7 +45,7 @@ const PRODUCTS = [
     brand: "Xiaomi",
     price: 29990000,
     originalPrice: 32990000,
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    image: "../images/xiaomi-17-ultra-leica-edition-1.jpg",
     rating: 5,
     specs: { ram: "16GB", storage: "512GB", battery: "5000 mAh", screen: "6.73 inch AMOLED C8" },
     discount: "9%",
@@ -58,7 +58,7 @@ const PRODUCTS = [
     brand: "Samsung",
     price: 2890000,
     originalPrice: 3490000,
-    image: "../images/hero_banner.png", // Can also use mockup or stylized images
+    image: "../images/samsung_galaxy_a07.webp", // Can also use mockup or stylized images
     rating: 4,
     specs: { ram: "4GB", storage: "64GB", battery: "5000 mAh", screen: "6.5 inch LCD" },
     discount: "17%",
@@ -71,7 +71,7 @@ const PRODUCTS = [
     brand: "Apple",
     price: 13690000,
     originalPrice: 16990000,
-    image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=600&q=80",
+    image: "../images/iphone-14-pro-max-128-99.webp",
     rating: 5,
     specs: { ram: "4GB", storage: "128GB", battery: "3240 mAh", screen: "6.1 inch Super Retina" },
     discount: "19%",
@@ -299,7 +299,7 @@ function initProductFilters() {
           </div>
           
           <!-- Buy Action -->
-          <button onclick="addToCart('${p.id}')" class="mt-3 w-full bg-slate-900 hover:bg-red-600 text-white font-semibold py-2 rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 select-none">
+          <button onclick="addToCart('${p.id}')" class="mt-3 w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 select-none">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
@@ -468,18 +468,7 @@ function initProductDetailPage() {
   if (buyNowBtn) {
     buyNowBtn.addEventListener('click', () => {
       // Add to cart and redirect immediately
-      const existing = cart.find(item => item.id === product.id);
-      if (!existing) {
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          brand: product.brand,
-          quantity: 1
-        });
-        localStorage.setItem('quang_hung_cart', JSON.stringify(cart));
-      }
+      addToCart(product.id, 1);
       window.location.href = 'cart.html';
     });
   }
