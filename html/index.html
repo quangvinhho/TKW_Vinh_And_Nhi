@@ -98,96 +98,36 @@
 
   <!-- ==================== HERO BANNERS SECTION ==================== -->
   <section class="max-w-7xl mx-auto px-4 mt-6">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      
-      <!-- Big Slider Banner (Left - 2cols) -->
-      <div class="lg:col-span-2 relative rounded-3xl overflow-hidden shadow-lg slider-container border border-slate-100 bg-white h-[260px] lg:h-[400px]">
-        <!-- Track for slider -->
-        <div id="slide-track" class="slide-track h-full">
-          <!-- Slide 1 (Galaxy A07 mock banner generated) -->
-          <div class="slide-item relative h-full bg-slate-900">
-            <img src="../images/sale-tet.jpg" alt="Galaxy A07 Mới" class="w-full h-full object-cover">
-            <!-- Text Overlays -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent flex flex-col justify-center px-8 md:px-16 text-white">
-              <span class="text-xs bg-red-600 font-extrabold px-3 py-1 rounded-full w-max tracking-wide mb-3 uppercase">Mới Ra Mắt</span>
-              <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Galaxy A07</h2>
-              <p class="text-slate-200 text-sm md:text-lg mt-2 max-w-md">Pin khủng cực đại 5000mAh. Trải nghiệm giải trí tuyệt vời cả ngày dài.</p>
-              <div class="mt-6 flex items-center gap-4">
-                <a href="product-detail.html?id=galaxy-a07-new" class="bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs md:text-sm px-6 py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5">
-                  Mua ngay
-                </a>
-                <span class="text-white font-bold text-xs md:text-sm">Chỉ từ <span class="text-yellow-400 text-base md:text-lg font-black">2.89 triệu</span></span>
-              </div>
-            </div>
-          </div>
+    <!-- Big Slider Banner (Full Width) -->
+    <div class="w-full relative rounded-3xl overflow-hidden shadow-lg slider-container border border-slate-100 bg-white h-[180px] sm:h-[260px] md:h-[320px] lg:h-[400px]">
+      <!-- Track for slider -->
+      <div id="slide-track" class="slide-track h-full">
+        <!-- Slide 1 (Galaxy A07 mock banner) -->
+        <a href="product-detail.html?id=galaxy-a07-new" class="slide-item block relative h-full">
+          <img src="../images/desk_header_21220f992b.webp" alt="Galaxy A07 Mới" class="w-full h-full object-fill">
+        </a>
 
-          <!-- Slide 2 (Standard high-quality phone ad) -->
-          <div class="slide-item relative h-full bg-slate-950">
-            <img src="../images/sale.jpg" alt="iPhone 15 Pro Max" class="w-full h-full object-cover opacity-60">
-            <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-16 text-white">
-              <span class="text-xs bg-amber-500 font-extrabold px-3 py-1 rounded-full w-max tracking-wide mb-3 uppercase">Độc Quyền</span>
-              <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">iPhone 15 Pro Max</h2>
-              <p class="text-slate-200 text-sm md:text-lg mt-2 max-w-md">Thiết kế Titanium bền nhẹ. Sức mạnh chip A17 Pro tối thượng.</p>
-              <div class="mt-6">
-                <a href="product-detail.html?id=iphone-15-pro" class="bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs md:text-sm px-6 py-3 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 inline-block">
-                  Khám phá ngay
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Arrow Controls -->
-        <button id="slide-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        </button>
-        <button id="slide-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </button>
-
-        <!-- Dot Indicators -->
-        <div id="slide-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-25">
-          <!-- Rendered via JS -->
-        </div>
-      </div>
-      
-      <!-- Small Stacked Banners (Right - 1col) -->
-      <div class="flex flex-col gap-4 h-auto lg:h-[400px]">
-        
-        <!-- Card Banner 1 -->
-        <div class="h-[120px] lg:h-auto lg:flex-1 bg-gradient-to-r from-blue-700 to-indigo-800 rounded-3xl p-5 text-white flex justify-between items-center relative overflow-hidden border border-slate-100 shadow hover:shadow-md transition-shadow">
-          <div class="z-10 flex-1">
-            <span class="text-[9px] bg-blue-500 font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider mb-1.5 inline-block">Ưu Đãi Lên Đời</span>
-            <h3 class="text-sm md:text-base font-extrabold leading-tight">Galaxy A17 128GB</h3>
-            <p class="text-[10px] text-blue-100 mt-0.5">Đổi điện thoại cũ chỉ từ <span class="font-extrabold text-yellow-300 text-xs">4.69 Triệu</span></p>
-            <a href="#" class="mt-2 text-[10px] font-bold text-blue-800 bg-white hover:bg-blue-50 px-3.5 py-1 rounded-lg transition-colors inline-block">
-              Xem ngay
-            </a>
-          </div>
-          <div class="w-16 h-16 rounded-2xl overflow-hidden border border-white/20 shadow-md rotate-12 absolute right-4 shrink-0 pointer-events-none">
-            <img src="../images/iphone-15-pro-max-256-99.png" alt="Sub promo" class="w-full h-full object-cover">
-          </div>
-        </div>
-
-        <!-- Card Banner 2 -->
-        <div class="h-[120px] lg:h-auto lg:flex-1 bg-gradient-to-r from-rose-500 to-amber-500 rounded-3xl p-5 text-white flex justify-between items-center relative overflow-hidden border border-slate-100 shadow hover:shadow-md transition-shadow">
-          <div class="z-10 flex-1">
-            <span class="text-[9px] bg-red-600 font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider mb-1.5 inline-block">Reno14 Series 5G</span>
-            <h3 class="text-sm md:text-base font-extrabold leading-tight">Chuyên Gia Chân Dung AI</h3>
-            <p class="text-[10px] text-rose-100 mt-0.5">Lên đời giảm đến <span class="font-extrabold text-yellow-300 text-xs">1.7 Triệu</span></p>
-            <a href="#" class="mt-2 text-[10px] font-bold text-white bg-slate-900 hover:bg-slate-800 px-3.5 py-1 rounded-lg transition-colors inline-block">
-              Nhận ưu đãi
-            </a>
-          </div>
-          <div class="w-16 h-16 rounded-2xl overflow-hidden border border-white/20 shadow-md -rotate-12 absolute right-4 shrink-0 pointer-events-none">
-            <img src="../images/oppo-reno.avif" alt="Oppo sub" class="w-full h-full object-cover">
-          </div>
-        </div>
-
+        <!-- Slide 2 (iPhone 15 Pro Max) -->
+        <a href="product-detail.html?id=iphone-15-pro" class="slide-item block relative h-full">
+          <img src="../images/desk_header_d7212039d2.webp" alt="iPhone 15 Pro Max" class="w-full h-full object-fill">
+        </a>
       </div>
 
+      <!-- Arrow Controls -->
+      <button id="slide-prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+      <button id="slide-next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 hover:bg-black/40 text-white flex items-center justify-center backdrop-blur shadow transition-all z-25">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+
+      <!-- Dot Indicators -->
+      <div id="slide-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-25">
+        <!-- Rendered via JS -->
+      </div>
     </div>
   </section>
+
 
   <!-- ==================== PRODUCT SECTIONS ==================== -->
   <main class="max-w-7xl mx-auto px-4 mt-10 mb-16 flex-1">

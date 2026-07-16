@@ -7,6 +7,11 @@ const PRODUCTS = [
     price: 29490000,
     originalPrice: 34990000,
     image: "../images/iphone-15-pro-max-256-99.png",
+    gallery: [
+      "../images/iphone-15-pro-max-256-99.png",
+      "../images/iphone-16-pro-max-titan-den.webp",
+      "../images/iphone-17-pro-1_1.webp"
+    ],
     rating: 5,
     specs: { ram: "8GB", storage: "256GB", battery: "4441 mAh", screen: "6.7 inch Super Retina" },
     discount: "15%",
@@ -20,6 +25,11 @@ const PRODUCTS = [
     price: 26990000,
     originalPrice: 33990000,
     image: "../images/s24.webp",
+    gallery: [
+      "../images/s24.webp",
+      "../images/s241.jpg",
+      "../images/samsung-galaxy-s24_17__2.webp"
+    ],
     rating: 5,
     specs: { ram: "12GB", storage: "256GB", battery: "5000 mAh", screen: "6.8 inch Dynamic AMOLED" },
     discount: "20%",
@@ -33,6 +43,11 @@ const PRODUCTS = [
     price: 13990000,
     originalPrice: 16990000,
     image: "../images/oppo-reno.avif",
+    gallery: [
+      "../images/oppo-reno.avif",
+      "../images/oppo_reno10_pro_plus_-_1.webp",
+      "../images/oppo_reno_13_f_4g_256gb.avif"
+    ],
     rating: 4,
     specs: { ram: "12GB", storage: "512GB", battery: "4600 mAh", screen: "6.7 inch AMOLED 120Hz" },
     discount: "17%",
@@ -46,6 +61,11 @@ const PRODUCTS = [
     price: 29990000,
     originalPrice: 32990000,
     image: "../images/xiaomi-17-ultra-leica-edition-1.jpg",
+    gallery: [
+      "../images/xiaomi-17-ultra-leica-edition-1.jpg",
+      "../images/Xiaomi-17-Ultra-Starry-Green-1.jpg",
+      "../images/Xiaomi.avif"
+    ],
     rating: 5,
     specs: { ram: "16GB", storage: "512GB", battery: "5000 mAh", screen: "6.73 inch AMOLED C8" },
     discount: "9%",
@@ -58,7 +78,12 @@ const PRODUCTS = [
     brand: "Samsung",
     price: 2890000,
     originalPrice: 3490000,
-    image: "../images/samsung_galaxy_a07.webp", // Can also use mockup or stylized images
+    image: "../images/samsung_galaxy_a07.webp",
+    gallery: [
+      "../images/samsung_galaxy_a07.webp",
+      "../images/samsung_galaxy_a071.webp",
+      "../images/samsung_galaxy_a072.webp"
+    ],
     rating: 4,
     specs: { ram: "4GB", storage: "64GB", battery: "5000 mAh", screen: "6.5 inch LCD" },
     discount: "17%",
@@ -72,6 +97,11 @@ const PRODUCTS = [
     price: 13690000,
     originalPrice: 16990000,
     image: "../images/iphone-14-pro-max-128-99.webp",
+    gallery: [
+      "../images/iphone-14-pro-max-128-99.webp",
+      "../images/iphone-14-pro_2__5.webp",
+      "../images/iphone-17-pro-5_1.webp"
+    ],
     rating: 5,
     specs: { ram: "4GB", storage: "128GB", battery: "3240 mAh", screen: "6.1 inch Super Retina" },
     discount: "19%",
@@ -195,7 +225,7 @@ function initHomeSlider() {
 
   function goToSlide(index) {
     currentIndex = (index + slideCount) % slideCount;
-    track.style.transform = `translateX(-${(currentIndex * 100) / slideCount}%)`;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
     updateDots();
   }
 
@@ -437,11 +467,40 @@ function initProductDetailPage() {
     mainImg.alt = product.name;
   }
 
-  const primaryThumbImg = document.querySelector('.gallery-thumb[data-img="primary"] img');
-  if (primaryThumbImg) {
-    primaryThumbImg.src = product.image;
-    primaryThumbImg.alt = product.name;
+  // Render gallery thumbnails dynamically
+  const thumbsContainer = document.querySelector('.lg\\:col-span-5 .grid.grid-cols-3');
+  if (thumbsContainer && product.gallery && product.gallery.length >= 3) {
+    thumbsContainer.innerHTML = `
+      <button data-img="0" class="gallery-thumb border-2 border-red-600 ring-2 ring-red-100 rounded-xl p-2 bg-slate-50 h-20 flex items-center justify-center focus:outline-none">
+        <img src="${product.gallery[0]}" alt="View 1" class="h-16 w-auto object-contain">
+      </button>
+      <button data-img="1" class="gallery-thumb border border-slate-200 rounded-xl p-2 bg-slate-50 h-20 flex items-center justify-center hover:border-red-400 focus:outline-none">
+        <img src="${product.gallery[1]}" alt="View 2" class="h-16 w-auto object-contain">
+      </button>
+      <button data-img="2" class="gallery-thumb border border-slate-200 rounded-xl p-2 bg-slate-50 h-20 flex items-center justify-center hover:border-red-400 focus:outline-none">
+        <img src="${product.gallery[2]}" alt="View 3" class="h-16 w-auto object-contain">
+      </button>
+    `;
   }
+
+  // Setup sub-gallery interactions dynamically
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+  thumbs.forEach(t => {
+    t.addEventListener('click', () => {
+      thumbs.forEach(tb => {
+        tb.classList.remove('border-red-600', 'ring-2', 'ring-red-100', 'border-slate-200');
+        tb.classList.add('border-slate-200');
+      });
+      t.classList.remove('border-slate-200');
+      t.classList.add('border-red-600', 'ring-2', 'ring-red-100');
+      if (mainImg) {
+        const imgIdx = parseInt(t.dataset.img);
+        if (product.gallery && product.gallery[imgIdx]) {
+          mainImg.src = product.gallery[imgIdx];
+        }
+      }
+    });
+  });
 
   // Detailed specs table rendering
   const specsBody = document.getElementById('detail-specs-tbody');
@@ -473,24 +532,42 @@ function initProductDetailPage() {
     });
   }
 
-  // Setup sub-gallery interactions if elements exist
-  const thumbs = document.querySelectorAll('.gallery-thumb');
-  thumbs.forEach(t => {
-    t.addEventListener('click', () => {
-      thumbs.forEach(tb => tb.classList.remove('border-red-600', 'ring-2', 'ring-red-100'));
-      t.classList.add('border-red-600', 'ring-2', 'ring-red-100');
-      if (mainImg) {
-        // Switch between phone mockup image and other preset mocks
-        if (t.dataset.img === 'primary') {
-          mainImg.src = product.image;
-        } else if (t.dataset.img === 'side') {
-          mainImg.src = "https://images.unsplash.com/photo-1573148195900-7845dcb9b127?auto=format&fit=crop&w=600&q=80";
-        } else {
-          mainImg.src = "https://images.unsplash.com/photo-1565849906661-ca9608fbae74?auto=format&fit=crop&w=600&q=80";
-        }
-      }
+  // Dynamic related products rendering (Using actual products from the project catalog)
+  const relatedContainer = document.getElementById('related-products-container');
+  if (relatedContainer) {
+    relatedContainer.innerHTML = '';
+    
+    // Filter out current product, take up to 4 items from the remaining catalog
+    const relatedProducts = PRODUCTS.filter(p => p.id !== product.id).slice(0, 4);
+    
+    relatedProducts.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'bg-white rounded-3xl border border-slate-100 p-4 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between group';
+      card.innerHTML = `
+        <div class="relative rounded-2xl overflow-hidden bg-slate-50 mb-3 h-48 flex items-center justify-center">
+          <a href="product-detail.html?id=${p.id}" class="block w-full h-full flex items-center justify-center p-4">
+            <img src="${p.image}" alt="${p.name}" class="h-40 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+          </a>
+          ${p.discount ? `<span class="absolute top-2 left-2 bg-red-100 text-red-600 font-extrabold text-[9px] px-2 py-0.5 rounded-full">-${p.discount}</span>` : ''}
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-slate-800 line-clamp-2 min-h-[32px] group-hover:text-red-500 transition-colors">
+            <a href="product-detail.html?id=${p.id}">${p.name}</a>
+          </h4>
+          <span class="text-[10px] text-slate-400 uppercase tracking-wide font-bold block mt-0.5">${p.brand}</span>
+          <div class="flex items-baseline gap-1.5 mt-2">
+            <span class="text-xs font-black text-red-600">${formatVND(p.price)}</span>
+            <span class="text-[10px] text-slate-400 line-through">${formatVND(p.originalPrice)}</span>
+          </div>
+        </div>
+        <button onclick="addToCart('${p.id}')" class="w-full mt-3 bg-slate-50 hover:bg-red-50 hover:text-red-600 text-slate-500 font-bold py-2.5 rounded-xl text-[10px] transition-colors flex items-center justify-center gap-1 select-none focus:outline-none">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          Thêm vào giỏ
+        </button>
+      `;
+      relatedContainer.appendChild(card);
     });
-  });
+  }
 
   // Storage selection UI toggle
   const storageCapsules = document.querySelectorAll('.storage-capsule');
@@ -951,7 +1028,7 @@ function updateUserHeader() {
   
   if (!user) {
     container.innerHTML = `
-      <button onclick="openLoginModal()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-extrabold text-[10px] sm:text-xs px-3.5 py-2 rounded-xl shadow transition-colors flex items-center gap-1 select-none">
+      <button onclick="openLoginModal()" class="bg-white hover:bg-slate-100 text-brand-red font-extrabold text-[10px] sm:text-xs px-3.5 py-2.5 rounded-xl shadow transition-colors flex items-center gap-1 select-none">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3 3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
         Đăng nhập
       </button>
@@ -970,7 +1047,7 @@ function updateUserHeader() {
   } else {
     const initials = user.fullname ? user.fullname.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'US';
     avatarMarkup = `
-      <div class="w-6 h-6 rounded-full bg-yellow-400 text-slate-900 font-bold text-xs flex items-center justify-center shadow-inner shrink-0 border border-white">
+      <div class="w-6 h-6 rounded-full bg-rose-200 text-brand-red font-bold text-xs flex items-center justify-center shadow-inner shrink-0 border border-white">
         ${initials}
       </div>
     `;
